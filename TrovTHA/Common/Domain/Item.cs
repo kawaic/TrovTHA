@@ -4,7 +4,7 @@ namespace Common.Domain
     /// <summary>
     /// An Item
     /// </summary>
-    public class Item : Domain
+    public class Item : BaseDomain
     {
         public string Name { get; set; }
         public string Description { get; set; }

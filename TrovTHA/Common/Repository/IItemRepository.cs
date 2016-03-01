@@ -5,8 +5,8 @@ namespace Common.Repository
 {
     public interface IItemRepository
     {
-        IEnumerable<Item> GetAllItems();
+        IEnumerable<Item> FindAll();
 
-
+        Item FindById(int id);
     }
 }

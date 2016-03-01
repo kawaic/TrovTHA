@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Common.Tests
 {
     [TestClass]
-    public class ItemRepositoryTest
+    public class InMemoryItemRepositoryTest
     {
         [TestMethod]
         public void TestFindAll()

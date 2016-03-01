@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using Common.Repository;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.Practices.Unity;
 using Newtonsoft.Json.Serialization;
+using TrovTHA.Utility;
 
 namespace TrovTHA
 {
@@ -25,6 +28,12 @@ namespace TrovTHA
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var container = new UnityContainer();
+            container.RegisterType<IItemRepository, ItemRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPurchaseRepository, InMemoryPurchaseRepository>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
+
         }
     }
 }
