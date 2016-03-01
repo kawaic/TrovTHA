@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Common.Repository;
 
 namespace TrovTHA.Controllers
 {
     [Authorize]
     public class ItemController : ApiController
     {
+        private IItemRepository itemRepository;
+
         // GET api/values
         public IEnumerable<string> Get()
         {
