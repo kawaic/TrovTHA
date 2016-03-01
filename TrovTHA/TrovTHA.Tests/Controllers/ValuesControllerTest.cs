@@ -17,10 +17,10 @@ namespace TrovTHA.Tests.Controllers
         public void Get()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ItemController apiController = new ItemController();
 
             // Act
-            IEnumerable<string> result = controller.Get();
+            IEnumerable<string> result = apiController.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -33,10 +33,10 @@ namespace TrovTHA.Tests.Controllers
         public void GetById()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ItemController apiController = new ItemController();
 
             // Act
-            string result = controller.Get(5);
+            string result = apiController.Get(5);
 
             // Assert
             Assert.AreEqual("value", result);
@@ -46,10 +46,10 @@ namespace TrovTHA.Tests.Controllers
         public void Post()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ItemController apiController = new ItemController();
 
             // Act
-            controller.Post("value");
+            apiController.Post("value");
 
             // Assert
         }
@@ -58,10 +58,10 @@ namespace TrovTHA.Tests.Controllers
         public void Put()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ItemController apiController = new ItemController();
 
             // Act
-            controller.Put(5, "value");
+            apiController.Put(5, "value");
 
             // Assert
         }
@@ -70,10 +70,10 @@ namespace TrovTHA.Tests.Controllers
         public void Delete()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            ItemController apiController = new ItemController();
 
             // Act
-            controller.Delete(5);
+            apiController.Delete(5);
 
             // Assert
         }
