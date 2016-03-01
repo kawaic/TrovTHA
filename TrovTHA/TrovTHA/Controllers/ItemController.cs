@@ -5,7 +5,6 @@ using Common.Repository;
 
 namespace TrovTHA.Controllers
 {
-    [Authorize]
     public class ItemController : ApiController
     {
         private readonly IItemRepository itemRepository;
