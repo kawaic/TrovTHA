@@ -31,7 +31,7 @@ namespace TrovTHA
 
             var container = new UnityContainer();
             container.RegisterType<IItemRepository, ItemRepository>(new HierarchicalLifetimeManager());
-            container.RegisterType<IPurchaseRepository, InMemoryPurchaseRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IPurchaseRepository, PurchaseRepository>(new HierarchicalLifetimeManager());
             config.DependencyResolver = new UnityResolver(container);
 
         }

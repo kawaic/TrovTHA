@@ -5,6 +5,7 @@ using Common.Repository;
 
 namespace TrovTHA.Controllers
 {
+    [RoutePrefix("api/Item")]
     public class ItemController : ApiController
     {
         private readonly IItemRepository itemRepository;
@@ -14,13 +15,13 @@ namespace TrovTHA.Controllers
             this.itemRepository = itemRepository;
         }
 
-        // GET api/values
+        // GET api/Item
         public IEnumerable<Item> Get()
         {
             return itemRepository.FindAll();
         }
 
-        // GET api/values/5
+        // GET api/Item/5
         public Item Get(int id)
         {
             return itemRepository.FindById(id);

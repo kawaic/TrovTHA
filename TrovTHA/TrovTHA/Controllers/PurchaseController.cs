@@ -4,6 +4,7 @@ using System.Web.Http;
 namespace TrovTHA.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/Purchase")]
     public class PurchaseController : ApiController
     {
         // GET: api/Purchase
