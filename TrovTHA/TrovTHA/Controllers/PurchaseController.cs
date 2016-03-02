@@ -6,7 +6,7 @@ using Common.Repository;
 namespace TrovTHA.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Purchase")]
+    [RoutePrefix("api/purchases")]
     public class PurchaseController : ApiController
     {
         private readonly IPurchaseRepository repository;
@@ -16,29 +16,34 @@ namespace TrovTHA.Controllers
             this.repository = repository;
         }
 
-        // GET: api/Purchase
+        // GET: api/purchases
+        [Route("")]
         public IEnumerable<Purchase> Get()
         {
             return repository.FindAll();
         }
 
-        // GET: api/Purchase/5
+        // GET: api/purchases/5
+        [Route("{id:int}")]
         public Purchase Get(int id)
         {
             return repository.FindById(id);
         }
 
-        // POST: api/Purchase
+        // POST: api/purchases
+        [Route("")]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Purchase/5
+        // PUT: api/purchases/5
+        [Route("{id:int}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Purchase/5
+        // DELETE: api/purchases/5
+        [Route("{id:int}")]
         public void Delete(int id)
         {
         }

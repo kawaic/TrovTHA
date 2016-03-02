@@ -14,7 +14,7 @@ namespace TrovTHA.Tests.Integration
         [TestMethod]
         public async Task TestGetItems()
         {
-            var response = await server.CreateRequest("/api/Item").GetAsync();
+            var response = await server.CreateRequest("/api/items").GetAsync();
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             var items = await response.Content.ReadAsAsync<IEnumerable<Item>>();
@@ -24,7 +24,7 @@ namespace TrovTHA.Tests.Integration
         [TestMethod]
         public async Task TestGetAnItem()
         {
-            var response = await server.CreateRequest("/api/Item/2").GetAsync();
+            var response = await server.CreateRequest("/api/items/2").GetAsync();
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             var item = await response.Content.ReadAsAsync<Item>();

@@ -39,7 +39,7 @@ namespace TrovTHA.Tests.Integration
 
             await RegisterUser();
             var token = GetToken();
-            var response = await server.CreateRequest("api/Purchase").AddHeader("Authorization","Bearer "+token).GetAsync();
+            var response = await server.CreateRequest("api/purchases").AddHeader("Authorization","Bearer "+token).GetAsync();
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             var purchases = await response.Content.ReadAsAsync<IEnumerable<Purchase>>();
