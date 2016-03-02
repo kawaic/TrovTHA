@@ -27,11 +27,11 @@ namespace Common.Repository
             {
                 lock (dictionary)
                 {
-                    if (!data.Id.HasValue)
+                    if (!data.DomainId.HasValue)
                     {
-                        data.Id = dictionary.Count + 1;
+                        data.DomainId = dictionary.Count + 1;
                     }
-                    dictionary[data.Id.Value] = data;
+                    dictionary[data.DomainId.Value] = data;
                 }
             }
             return data;

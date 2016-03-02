@@ -32,7 +32,7 @@ namespace Common.Tests
         {
             IPurchaseRepository repository = new PurchaseRepository();
             var saved = repository.Save(new Purchase {DateTime = DateTime.Now, ItemId = 3});
-            Assert.IsNotNull(saved.Id);
+            Assert.IsNotNull(saved.DomainId);
         }
     }
 }
