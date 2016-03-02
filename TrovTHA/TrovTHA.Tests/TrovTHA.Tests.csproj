@@ -135,8 +135,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PurchaseControllerTest.cs" />
+    <Compile Include="Integration\AccountApiTest.cs" />
     <Compile Include="Integration\BaseApiServerTest.cs" />
-    <Compile Include="Integration\ItemApiTests.cs" />
+    <Compile Include="Integration\ItemApiTest.cs" />
+    <Compile Include="Integration\PurchaseApiTest.cs" />
     <Compile Include="Integration\TestStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

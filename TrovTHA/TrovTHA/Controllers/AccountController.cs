@@ -330,7 +330,8 @@ namespace TrovTHA.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var applicationUserManager = UserManager;
+            IdentityResult result = await applicationUserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Common.Domain;
+using Common.Repository;
 
 namespace TrovTHA.Controllers
 {
@@ -7,16 +9,23 @@ namespace TrovTHA.Controllers
     [RoutePrefix("api/Purchase")]
     public class PurchaseController : ApiController
     {
-        // GET: api/Purchase
-        public IEnumerable<string> Get()
+        private readonly IPurchaseRepository repository;
+
+        public PurchaseController(IPurchaseRepository repository)
         {
-            return new string[] { "value1", "value2" };
+            this.repository = repository;
+        }
+
+        // GET: api/Purchase
+        public IEnumerable<Purchase> Get()
+        {
+            return repository.FindAll();
         }
 
         // GET: api/Purchase/5
-        public string Get(int id)
+        public Purchase Get(int id)
         {
-            return "value";
+            return repository.FindById(id);
         }
 
         // POST: api/Purchase
