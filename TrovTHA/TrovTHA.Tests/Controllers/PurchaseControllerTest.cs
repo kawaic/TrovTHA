@@ -45,9 +45,13 @@ namespace TrovTHA.Tests.Controllers
         }
 
         [TestMethod]
-        public void Post(Purchase purchase)
+        public void Post()
         {
-
+            var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
+            var dateTime = DateTime.Now;
+            mockRepository.Stub(repository => repository.FindById("5")).Return(new Purchase { DateTime = dateTime, ItemId = "5" });
+            var apiController = new PurchaseController(mockRepository);
+            apiController.Post(new Purchase {DateTime = DateTime.Now, ItemId = "2"});
         }
     }
 }

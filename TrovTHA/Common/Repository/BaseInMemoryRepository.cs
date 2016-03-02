@@ -26,14 +26,11 @@ namespace Common.Repository
         {
             if (data != null)
             {
-                lock (dictionary)
+                if (data.DomainId == null)
                 {
-                    if (data.DomainId == null)
-                    {
-                        data.DomainId = Guid.NewGuid().ToString();
-                    }
-                    dictionary[data.DomainId] = data;
+                    data.DomainId = Guid.NewGuid().ToString();
                 }
+                dictionary[data.DomainId] = data;
             }
             return data;
         }

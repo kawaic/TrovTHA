@@ -1,5 +1,4 @@
-﻿using System;
-namespace Common.Domain
+﻿namespace Common.Domain
 {
     public interface IDomain
     {

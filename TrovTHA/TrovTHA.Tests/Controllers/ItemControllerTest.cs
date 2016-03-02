@@ -17,13 +17,8 @@ namespace TrovTHA.Tests.Controllers
         {
             var mockRepository = MockRepository.GenerateMock<IItemRepository>();
             mockRepository.Stub(repository => repository.FindAll()).Return(new List<Item> { new Item {Name = "Hello"}, new Item {Name = "World"} });
-            // Arrange
             ItemController apiController = new ItemController(mockRepository);
-
-            // Act
             IEnumerable<Item> result = apiController.Get().ToList();
-
-            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count());
             Assert.AreEqual("Hello", result.ElementAt(0).Name);
@@ -35,13 +30,8 @@ namespace TrovTHA.Tests.Controllers
         {
             var mockRepository = MockRepository.GenerateMock<IItemRepository>();
             mockRepository.Stub(repository => repository.FindById("5")).Return(new Item {Name = "I AM 5"});
-            // Arrange
             ItemController apiController = new ItemController(mockRepository);
-
-            // Act
             Item result = apiController.Get("5");
-
-            // Assert
             Assert.AreEqual("I AM 5", result.Name);
         }
 
