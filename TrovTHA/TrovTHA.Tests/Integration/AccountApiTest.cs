@@ -27,5 +27,11 @@ namespace TrovTHA.Tests.Integration
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [TestMethod]
+        public async Task CanGetUserInfo()
+        {
+            
+        }
     }
 }
