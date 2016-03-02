@@ -3,6 +3,6 @@ namespace Common.Domain
 {
     public interface IDomain
     {
-        int? DomainId { get; set; }
+        string DomainId { get; set; }
     }
 }

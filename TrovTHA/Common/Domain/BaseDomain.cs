@@ -2,6 +2,6 @@
 {
     public abstract class BaseDomain : IDomain
     {
-        public int? DomainId { get; set; }
+        public string DomainId { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace Common.Repository
     {
         IEnumerable<Item> FindAll();
 
-        Item FindById(int id);
+        Item FindById(string id);
     }
 }

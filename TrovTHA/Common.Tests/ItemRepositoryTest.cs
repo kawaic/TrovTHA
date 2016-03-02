@@ -36,7 +36,7 @@ namespace Common.Tests
         {
             IItemRepository repository = new ItemRepository();
 
-            var apple = repository.FindById(1);
+            var apple = repository.FindById("1");
             Assert.IsNotNull(apple);
             Assert.AreEqual("Apple", apple.Name);
             Assert.AreEqual("Gala apple.", apple.Description);

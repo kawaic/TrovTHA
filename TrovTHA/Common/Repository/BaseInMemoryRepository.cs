@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.Domain;
 
 namespace Common.Repository
 {
     public abstract class BaseInMemoryRepository<T> where T : IDomain
     {
-        private readonly Dictionary<int, T> dictionary = new Dictionary<int, T>();
+        private readonly Dictionary<string, T> dictionary = new Dictionary<string, T>();
 
 
         public IEnumerable<T> FindAll()
@@ -13,7 +14,7 @@ namespace Common.Repository
             return dictionary.Values;
         }
 
-        public T FindById(int id)
+        public T FindById(string id)
         {
             T result;
             var success = dictionary.TryGetValue(id, out result);
@@ -27,11 +28,11 @@ namespace Common.Repository
             {
                 lock (dictionary)
                 {
-                    if (!data.DomainId.HasValue)
+                    if (data.DomainId == null)
                     {
-                        data.DomainId = dictionary.Count + 1;
+                        data.DomainId = Guid.NewGuid().ToString();
                     }
-                    dictionary[data.DomainId.Value] = data;
+                    dictionary[data.DomainId] = data;
                 }
             }
             return data;

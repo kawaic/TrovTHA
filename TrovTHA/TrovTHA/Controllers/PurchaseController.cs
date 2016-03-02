@@ -25,7 +25,7 @@ namespace TrovTHA.Controllers
 
         // GET: api/purchases/5
         [Route("{id:int}")]
-        public Purchase Get(int id)
+        public Purchase Get(string id)
         {
             return repository.FindById(id);
         }

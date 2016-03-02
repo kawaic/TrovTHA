@@ -22,9 +22,9 @@ namespace TrovTHA.Controllers
             return itemRepository.FindAll();
         }
 
-        [Route("{id:int}")]
+        [Route("{id}")]
         // GET api/items/5
-        public Item Get(int id)
+        public Item Get(string id)
         {
             return itemRepository.FindById(id);
         }

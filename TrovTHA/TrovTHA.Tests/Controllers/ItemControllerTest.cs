@@ -34,12 +34,12 @@ namespace TrovTHA.Tests.Controllers
         public void GetById()
         {
             var mockRepository = MockRepository.GenerateMock<IItemRepository>();
-            mockRepository.Stub(repository => repository.FindById(5)).Return(new Item {Name = "I AM 5"});
+            mockRepository.Stub(repository => repository.FindById("5")).Return(new Item {Name = "I AM 5"});
             // Arrange
             ItemController apiController = new ItemController(mockRepository);
 
             // Act
-            Item result = apiController.Get(5);
+            Item result = apiController.Get("5");
 
             // Assert
             Assert.AreEqual("I AM 5", result.Name);

@@ -22,7 +22,7 @@ namespace Common.Tests
         public void TestFindById()
         {
             IPurchaseRepository repository = new PurchaseRepository();
-            var result = repository.FindById(2);
+            var result = repository.FindById("2");
 
             Assert.IsNotNull(result);
         }

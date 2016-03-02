@@ -38,9 +38,9 @@ namespace TrovTHA.Tests.Controllers
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
             var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindById(5)).Return(new Purchase { DateTime= dateTime, ItemId = 5});
+            mockRepository.Stub(repository => repository.FindById("5")).Return(new Purchase { DateTime= dateTime, ItemId = 5});
             var apiController = new PurchaseController(mockRepository);
-            Purchase result = apiController.Get(5);
+            Purchase result = apiController.Get("5");
             Assert.AreEqual(5, result.ItemId);
         }
 

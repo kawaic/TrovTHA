@@ -8,7 +8,7 @@ namespace TrovTHA.Models
 {
     public class ApplicationUser : IdentityUser, IDomain
     {
-        public int? DomainId { get; set; }
+        public string DomainId { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager,
             string authenticationType)

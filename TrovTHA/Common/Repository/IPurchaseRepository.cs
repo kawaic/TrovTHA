@@ -7,7 +7,7 @@ namespace Common.Repository
     {
         Purchase Save(Purchase purchase);
         IEnumerable<Purchase> FindAll();
-        Purchase FindById(int id);
+        Purchase FindById(string id);
 
     }
 }
