@@ -23,10 +23,9 @@ namespace TrovTHA.Tests.Integration
 
                 var config = new HttpConfiguration();
                 WebApiConfig.Register(config);
+                UnityConfig.RegisterComponents();
                 var container = new UnityContainer();
-                container.RegisterType<IItemRepository, ItemRepository>(new ContainerControlledLifetimeManager());
-                container.RegisterType<IPurchaseRepository, PurchaseRepository>(new ContainerControlledLifetimeManager());
-                container.RegisterType<IUserRepository, UserRepository>(new ContainerControlledLifetimeManager());
+                UnityConfig.LoadContainer(container);
                 var dependencyResolver = new UnityResolver(container);
                 config.DependencyResolver = dependencyResolver;
                 GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver;
