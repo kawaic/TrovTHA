@@ -17,11 +17,11 @@ namespace TrovTHA.Tests.Controllers
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
             var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindAll())
+            mockRepository.Stub(repository => repository.FindByUserId(null))
                 .Return(new List<Purchase>
                 {
-                    new Purchase {DateTime = dateTime, ItemId = "3"},
-                    new Purchase {DateTime = dateTime, ItemId = "2"}
+                    new Purchase {DateTime = dateTime, ItemId = "3",},
+                    new Purchase {DateTime = dateTime, ItemId = "2",}
                 });
             var apiController = new PurchaseController(mockRepository);
 
@@ -45,8 +45,9 @@ namespace TrovTHA.Tests.Controllers
         }
 
         [TestMethod]
-        public void Post()
+        public void Post(Purchase purchase)
         {
+
         }
     }
 }

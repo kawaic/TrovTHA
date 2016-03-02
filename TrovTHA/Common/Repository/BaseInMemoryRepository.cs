@@ -6,7 +6,7 @@ namespace Common.Repository
 {
     public abstract class BaseInMemoryRepository<T> where T : IDomain
     {
-        private readonly Dictionary<string, T> dictionary = new Dictionary<string, T>();
+        protected readonly Dictionary<string, T> dictionary = new Dictionary<string, T>();
 
 
         public IEnumerable<T> FindAll()
@@ -37,5 +37,6 @@ namespace Common.Repository
             }
             return data;
         }
+
     }
 }

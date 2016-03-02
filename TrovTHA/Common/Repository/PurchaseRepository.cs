@@ -1,4 +1,6 @@
-﻿using Common.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Common.Domain;
 
 namespace Common.Repository
 {
@@ -7,6 +9,11 @@ namespace Common.Repository
         public PurchaseRepository()
         {
             ObjectMother.GetTestPurchases().ForEach(x => Save(x));
+        }
+
+        public IEnumerable<Purchase> FindByUserId(string userId)
+        {
+            return FindAll().Where(purchase => purchase.UserId == userId);
         }
     }
 }

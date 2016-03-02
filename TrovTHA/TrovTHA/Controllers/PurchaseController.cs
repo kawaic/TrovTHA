@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Common.Domain;
 using Common.Repository;
+using Microsoft.AspNet.Identity;
 
 namespace TrovTHA.Controllers
 {
@@ -16,11 +18,12 @@ namespace TrovTHA.Controllers
             this.repository = repository;
         }
 
-        // GET: api/purchases
+        // GET: api/purchases for authenticated user
         [Route("")]
         public IEnumerable<Purchase> Get()
         {
-            return repository.FindAll();
+            var userId = User.Identity.GetUserId();
+            return repository.FindByUserId(userId);
         }
 
         // GET: api/purchases/5
@@ -32,8 +35,12 @@ namespace TrovTHA.Controllers
 
         // POST: api/purchases
         [Route("")]
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post(Purchase model)
         {
+            var userId = User.Identity.GetUserId();
+            model.UserId = userId;
+            repository.Save(model);
+            return Ok();
         }
 
         // PUT: api/purchases/5

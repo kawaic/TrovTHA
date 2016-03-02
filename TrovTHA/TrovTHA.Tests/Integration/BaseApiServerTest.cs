@@ -4,7 +4,6 @@ using Microsoft.Owin.Testing;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
-using TrovTHA.Repository;
 using TrovTHA.Utility;
 
 namespace TrovTHA.Tests.Integration
@@ -31,6 +30,12 @@ namespace TrovTHA.Tests.Integration
                 GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver;
                 app.UseWebApi(config);
             });
+            RunPostSetup();
+        }
+
+        protected virtual void RunPostSetup()
+        {
+            
         }
 
         [TestCleanup]

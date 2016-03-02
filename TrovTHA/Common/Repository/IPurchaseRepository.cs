@@ -8,6 +8,6 @@ namespace Common.Repository
         Purchase Save(Purchase purchase);
         IEnumerable<Purchase> FindAll();
         Purchase FindById(string id);
-
+        IEnumerable<Purchase> FindByUserId(string userId);
     }
 }

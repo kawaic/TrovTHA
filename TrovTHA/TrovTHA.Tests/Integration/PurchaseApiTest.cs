@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,10 +15,18 @@ namespace TrovTHA.Tests.Integration
     [TestClass]
     public class PurchaseApiTest : BaseApiServerTest
     {
+        private string token;
+
+        protected override void RunPostSetup()
+        {
+            base.RunPostSetup();
+            RegisterUser();
+            token = GetToken();
+        }
 
         private string GetToken()
         {
-            var details = new List<KeyValuePair<string, string>>()
+            var details = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("grant_type", "password"),
                 new KeyValuePair<string, string>("username", "testuser@somewhere.com"),
@@ -32,21 +41,34 @@ namespace TrovTHA.Tests.Integration
             return token;
         }
 
+        [TestMethod]
+        public async Task TestPostPurchase()
+        {
+            var model = new Purchase {DateTime = DateTime.Now, ItemId = "1"};
+
+            var objectContent = new ObjectContent(typeof (Purchase), model, new JsonMediaTypeFormatter());
+
+            var response = await server.CreateRequest("/api/purchases")
+                .And(req => { req.Content = objectContent; }).AddHeader("Authorization", "Bearer " + token)
+                .PostAsync();
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
 
         [TestMethod]
         public async Task TestGetPurchases()
         {
-
-            await RegisterUser();
-            var token = GetToken();
-            var response = await server.CreateRequest("api/purchases").AddHeader("Authorization","Bearer "+token).GetAsync();
+            await TestPostPurchase();
+            var response =
+                await server.CreateRequest("api/purchases").AddHeader("Authorization", "Bearer " + token).GetAsync();
             Assert.IsTrue(response.IsSuccessStatusCode);
 
             var purchases = await response.Content.ReadAsAsync<IEnumerable<Purchase>>();
-            Assert.AreEqual(3, purchases.Count());
+            Assert.AreEqual(1, purchases.Count());
         }
 
-        private async Task RegisterUser()
+        private void RegisterUser()
         {
             var model = new RegisterBindingModel
             {
@@ -54,14 +76,13 @@ namespace TrovTHA.Tests.Integration
                 Password = "P@55w0rd",
                 ConfirmPassword = "P@55w0rd"
             };
-            var objectContent = new ObjectContent(typeof(RegisterBindingModel), model, new JsonMediaTypeFormatter());
+            var objectContent = new ObjectContent(typeof (RegisterBindingModel), model, new JsonMediaTypeFormatter());
 
-            var response = await server.CreateRequest("/api/Account/Register")
+            var response = server.CreateRequest("/api/Account/Register")
                 .And(req => { req.Content = objectContent; })
-                .PostAsync();
+                .PostAsync().Result;
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
         }
     }
 }
