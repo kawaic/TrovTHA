@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Cryptography;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
 using TrovTHA.Models;
-using TrovTHA.Providers;
-using TrovTHA.Results;
 
 namespace TrovTHA.Controllers
 {
@@ -22,26 +13,11 @@ namespace TrovTHA.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private const string LocalLoginProvider = "Local";
+        private ApplicationUserManager UserManager => Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        private IAuthenticationManager Authentication => Request.GetOwinContext().Authentication;
 
-        public ApplicationUserManager UserManager => Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
-        // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
-        {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
-            return new UserInfoViewModel
-            {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
-        }
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -70,56 +46,6 @@ namespace TrovTHA.Controllers
 
             return Ok();
         }
-
-        // POST api/Account/SetPassword
-        [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-
-        // POST api/Account/RemoveLogin
-        [Route("RemoveLogin")]
-        public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result;
-
-            if (model.LoginProvider == LocalLoginProvider)
-            {
-                result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId());
-            }
-            else
-            {
-                result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(),
-                    new UserLoginInfo(model.LoginProvider, model.ProviderKey));
-            }
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
 
         // POST api/Account/Register
         [AllowAnonymous]
@@ -157,10 +83,6 @@ namespace TrovTHA.Controllers
 
         #region Helpers
 
-        private IAuthenticationManager Authentication
-        {
-            get { return Request.GetOwinContext().Authentication; }
-        }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
@@ -189,75 +111,6 @@ namespace TrovTHA.Controllers
             }
 
             return null;
-        }
-
-        private class ExternalLoginData
-        {
-            public string LoginProvider { get; set; }
-            public string ProviderKey { get; set; }
-            public string UserName { get; set; }
-
-            public IList<Claim> GetClaims()
-            {
-                IList<Claim> claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
-
-                if (UserName != null)
-                {
-                    claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
-                }
-
-                return claims;
-            }
-
-            public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
-            {
-                if (identity == null)
-                {
-                    return null;
-                }
-
-                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
-                    || String.IsNullOrEmpty(providerKeyClaim.Value))
-                {
-                    return null;
-                }
-
-                if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
-                {
-                    return null;
-                }
-
-                return new ExternalLoginData
-                {
-                    LoginProvider = providerKeyClaim.Issuer,
-                    ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
-                };
-            }
-        }
-
-        private static class RandomOAuthStateGenerator
-        {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
-
-            public static string Generate(int strengthInBits)
-            {
-                const int bitsPerByte = 8;
-
-                if (strengthInBits % bitsPerByte != 0)
-                {
-                    throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
-                }
-
-                int strengthInBytes = strengthInBits / bitsPerByte;
-
-                byte[] data = new byte[strengthInBytes];
-                _random.GetBytes(data);
-                return HttpServerUtility.UrlTokenEncode(data);
-            }
         }
 
         #endregion

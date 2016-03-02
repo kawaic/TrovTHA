@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using TrovTHA.Models;
@@ -22,10 +18,10 @@ namespace TrovTHA.Tests.Integration
         {
             base.RunPostSetup();
             RegisterUser();
-            token = GetToken();
+            token = LoginAndGetToken();
         }
 
-        private string GetToken()
+        private string LoginAndGetToken()
         {
             var details = new List<KeyValuePair<string, string>>
             {
@@ -38,8 +34,7 @@ namespace TrovTHA.Tests.Integration
             var result = server.HttpClient.PostAsync("/Token", tokenPostData).Result;
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
             var body = JObject.Parse(result.Content.ReadAsStringAsync().Result);
-            var token = (string)body["access_token"];
-            return token;
+            return (string)body["access_token"];
         }
 
         private void RegisterUser()
