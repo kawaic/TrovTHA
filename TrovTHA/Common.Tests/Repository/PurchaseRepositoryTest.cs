@@ -4,7 +4,7 @@ using Common.Domain;
 using Common.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Common.Tests
+namespace Common.Tests.Repository
 {
     [TestClass]
     public class PurchaseRepositoryTest

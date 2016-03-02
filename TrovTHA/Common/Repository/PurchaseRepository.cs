@@ -8,7 +8,7 @@ namespace Common.Repository
     {
         public PurchaseRepository()
         {
-            ObjectMother.GetTestPurchases().ForEach(x => Save(x));
+            ObjectMother.Purchases.ForEach(x => Save(x));
         }
 
         public IEnumerable<Purchase> FindByUserId(string userId)

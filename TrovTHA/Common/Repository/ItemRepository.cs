@@ -6,7 +6,7 @@ namespace Common.Repository
     {
         public ItemRepository()
         {
-            ObjectMother.GetTestItems().ForEach(x => Save(x));
+            ObjectMother.Items.ForEach(x => Save(x));
         }
     }
 }

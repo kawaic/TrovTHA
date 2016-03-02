@@ -42,9 +42,12 @@
   <ItemGroup>
     <Compile Include="Domain\BaseDomain.cs" />
     <Compile Include="Domain\IDomain.cs" />
+    <Compile Include="Domain\Inventory.cs" />
     <Compile Include="Domain\Purchase.cs" />
     <Compile Include="Repository\BaseInMemoryRepository.cs" />
+    <Compile Include="Repository\IInventoryRepository.cs" />
     <Compile Include="Repository\IItemRepository.cs" />
+    <Compile Include="Repository\InventoryRepository.cs" />
     <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Domain\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

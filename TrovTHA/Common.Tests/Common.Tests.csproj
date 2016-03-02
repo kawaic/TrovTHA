@@ -56,9 +56,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ItemRepositoryTest.cs" />
+    <Compile Include="Repository\InventoryRepositoryTest.cs" />
+    <Compile Include="Repository\ItemRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseRepositoryTest.cs" />
+    <Compile Include="Repository\PurchaseRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

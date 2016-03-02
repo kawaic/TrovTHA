@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using TrovTHA.Models;
 
 namespace TrovTHA.Tests.Integration
@@ -28,5 +30,25 @@ namespace TrovTHA.Tests.Integration
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
+
+        [TestMethod]
+        public async Task CanLogin()
+        {
+            await CanRegisterUser();
+            var details = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", "testuser@somewhere.com"),
+                new KeyValuePair<string, string>("password", "P@55w0rd")
+            };
+
+            var tokenPostData = new FormUrlEncodedContent(details);
+            var result = server.HttpClient.PostAsync("/Token", tokenPostData).Result;
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+            var body = JObject.Parse(result.Content.ReadAsStringAsync().Result);
+            var token = (string)body["access_token"];
+
+            Assert.IsNotNull(token);
+        }
     }
 }
