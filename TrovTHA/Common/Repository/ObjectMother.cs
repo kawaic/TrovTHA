@@ -14,9 +14,9 @@ namespace Common.Repository
             var dateTimeNow = DateTime.Now;
             var result = new List<Purchase>
             {
-                new Purchase {DateTime = dateTimeNow, ItemId = 1, DomainId = "1"},
-                new Purchase {DateTime = dateTimeNow, ItemId = 2, DomainId = "2"},
-                new Purchase {DateTime = dateTimeNow, ItemId = 3, DomainId = "3"},
+                new Purchase {DateTime = dateTimeNow, ItemId = "1", DomainId = "1", UserId = "1"},
+                new Purchase {DateTime = dateTimeNow, ItemId = "2", DomainId = "2", UserId = "1"},
+                new Purchase {DateTime = dateTimeNow, ItemId = "3", DomainId = "3", UserId = "2"},
             };
             return result;
         }

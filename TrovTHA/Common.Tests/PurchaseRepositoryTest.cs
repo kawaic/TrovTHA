@@ -31,7 +31,7 @@ namespace Common.Tests
         public void TestShouldSave()
         {
             IPurchaseRepository repository = new PurchaseRepository();
-            var saved = repository.Save(new Purchase {DateTime = DateTime.Now, ItemId = 3});
+            var saved = repository.Save(new Purchase {DateTime = DateTime.Now, ItemId = "3"});
             Assert.IsNotNull(saved.DomainId);
         }
     }
