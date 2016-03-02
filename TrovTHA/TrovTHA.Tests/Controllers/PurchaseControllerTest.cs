@@ -43,10 +43,12 @@ namespace TrovTHA.Tests.Controllers
         public void Post()
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
+            var purchase = new Purchase { DateTime = DateTime.Now, ItemId = "2" };
             var apiController = new PurchaseController(mockRepository);
+            mockRepository.Expect(repository => repository.Save(purchase));
             SetupUserIdInController(apiController);
 
-            var result = apiController.Post(new Purchase {DateTime = DateTime.Now, ItemId = "2"});
+            var result = apiController.Post(purchase);
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
     }
