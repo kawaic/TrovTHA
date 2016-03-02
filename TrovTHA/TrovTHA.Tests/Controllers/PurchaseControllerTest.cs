@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Web.Http;
+using System.Web.Http.Results;
 using Common.Domain;
 using Common.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,20 +14,22 @@ using TrovTHA.Controllers;
 namespace TrovTHA.Tests.Controllers
 {
     [TestClass]
-    public class PurchaseControllerTest
+    public class PurchaseControllerTest : BaseAuthenticatedControllerTest
     {
+
         [TestMethod]
         public void Get()
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
             var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindByUserId(null))
+            mockRepository.Stub(repository => repository.FindByUserId("1"))
                 .Return(new List<Purchase>
                 {
-                    new Purchase {DateTime = dateTime, ItemId = "3",},
-                    new Purchase {DateTime = dateTime, ItemId = "2",}
+                    new Purchase {DateTime = dateTime, ItemId = "3"},
+                    new Purchase {DateTime = dateTime, ItemId = "2"}
                 });
             var apiController = new PurchaseController(mockRepository);
+            SetupUserIdInController(apiController);
 
             IEnumerable<Purchase> result = apiController.Get().ToList();
 
@@ -34,24 +40,14 @@ namespace TrovTHA.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetById()
-        {
-            var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
-            var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindById("5")).Return(new Purchase { DateTime= dateTime, ItemId = "5"});
-            var apiController = new PurchaseController(mockRepository);
-            Purchase result = apiController.Get("5");
-            Assert.AreEqual("5", result.ItemId);
-        }
-
-        [TestMethod]
         public void Post()
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
-            var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindById("5")).Return(new Purchase { DateTime = dateTime, ItemId = "5" });
             var apiController = new PurchaseController(mockRepository);
-            apiController.Post(new Purchase {DateTime = DateTime.Now, ItemId = "2"});
+            SetupUserIdInController(apiController);
+
+            var result = apiController.Post(new Purchase {DateTime = DateTime.Now, ItemId = "2"});
+            Assert.IsInstanceOfType(result, typeof(OkResult));
         }
     }
 }

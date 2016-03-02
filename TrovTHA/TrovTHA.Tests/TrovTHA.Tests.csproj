@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseAuthenticatedControllerTest.cs" />
     <Compile Include="Controllers\PurchaseControllerTest.cs" />
     <Compile Include="Integration\AccountApiTest.cs" />
     <Compile Include="Integration\BaseApiServerTest.cs" />
