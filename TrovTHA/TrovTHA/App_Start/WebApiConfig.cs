@@ -29,11 +29,6 @@ namespace TrovTHA
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var container = new UnityContainer();
-            container.RegisterType<IItemRepository, ItemRepository>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IPurchaseRepository, PurchaseRepository>(new ContainerControlledLifetimeManager());
-            config.DependencyResolver = new UnityResolver(container);
-
         }
     }
 }
