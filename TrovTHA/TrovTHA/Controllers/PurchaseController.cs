@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Common.Domain;
 using Common.Repository;
@@ -26,13 +25,6 @@ namespace TrovTHA.Controllers
             return repository.FindByUserId(userId);
         }
 
-        // GET: api/purchases/5
-        [Route("{id:int}")]
-        public Purchase Get(string id)
-        {
-            return repository.FindById(id);
-        }
-
         // POST: api/purchases
         [Route("")]
         public IHttpActionResult Post(Purchase model)
@@ -43,16 +35,5 @@ namespace TrovTHA.Controllers
             return Ok();
         }
 
-        // PUT: api/purchases/5
-        [Route("{id:int}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/purchases/5
-        [Route("{id:int}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
