@@ -37,39 +37,33 @@ namespace TrovTHA.Providers
             return Task.FromResult(repository.Save(user));
         }
 
-        #region Not implemented methods     
-
-        public Task DeleteAsync(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
             var user = repository.FindById(userId);
             return Task.FromResult(user);
         }
 
-        public Task UpdateAsync(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<bool> HasPasswordAsync(ApplicationUser user)
         {
+            var result = user.PasswordHash != null;
+            return Task.FromResult(result);
+        }
+
+        public Task DeleteAsync(ApplicationUser user)
+        {
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
 
+        public Task UpdateAsync(ApplicationUser user)
+        {
+            return Task.FromResult(repository.Save(user));
         }
 
-        #endregion
 
         public Task SetEmailAsync(ApplicationUser user, string email)
-        {
-            throw new NotImplementedException();
+        {            
+            return Task.FromResult(user.Email = email);
         }
 
         public Task<string> GetEmailAsync(ApplicationUser user)
@@ -92,5 +86,12 @@ namespace TrovTHA.Providers
             var user = repository.FindAll().FirstOrDefault(item => item.Email == email);
             return Task.FromResult(user);
         }
+
+
+        public void Dispose()
+        {
+
+        }
+
     }
 }
