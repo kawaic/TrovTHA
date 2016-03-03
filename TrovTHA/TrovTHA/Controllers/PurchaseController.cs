@@ -39,7 +39,7 @@ namespace TrovTHA.Controllers
             var inventory = inventoryRepository.FindByItemId(purchase.ItemId);
             lock (inventory)
             {
-                if (inventory.NumberInStock >= purchase.Quantity)
+                if (inventory.HasEnoughStockFor(purchase))
                 {
                     inventory.NumberInStock = inventory.NumberInStock - purchase.Quantity;
                     inventoryRepository.Save(inventory);

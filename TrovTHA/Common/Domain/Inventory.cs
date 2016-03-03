@@ -6,5 +6,10 @@
         public int NumberInStock { get; set; }
         public int ReOrderLevel { get; set; }
         public string Location { get; set; }
+
+        public bool HasEnoughStockFor(Purchase purchase)
+        {
+            return NumberInStock >= purchase.Quantity;
+        }
     }
 }

@@ -20,6 +20,10 @@ namespace TrovTHA.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // POST api/Account/Logout
+        /// <summary>
+        /// Logout current user
+        /// </summary>
+        /// <returns></returns>
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
@@ -28,6 +32,11 @@ namespace TrovTHA.Controllers
         }
 
         // POST api/Account/ChangePassword
+        /// <summary>
+        /// Change password for current user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -48,6 +57,11 @@ namespace TrovTHA.Controllers
         }
 
         // POST api/Account/Register
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
