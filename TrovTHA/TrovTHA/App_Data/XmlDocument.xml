@@ -481,6 +481,11 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:TrovTHA.Controllers.AccountController">
+            <summary>
+            Account controller for managing account resource api/Account
+            </summary>
+        </member>
         <member name="M:TrovTHA.Controllers.AccountController.Logout">
             <summary>
             Logout current user
@@ -499,6 +504,53 @@
             Register a new user
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TrovTHA.Controllers.InventoryController">
+            <summary>
+            Inventory controller for managing inventory resource api/inventories
+            </summary>
+        </member>
+        <member name="M:TrovTHA.Controllers.InventoryController.Get">
+            <summary>
+            Gets the list of all inventories
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TrovTHA.Controllers.ItemController">
+            <summary>
+            Item controller for managing item resource api/items
+            </summary>
+        </member>
+        <member name="M:TrovTHA.Controllers.ItemController.Get">
+            <summary>
+            Gets the list of all items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TrovTHA.Controllers.ItemController.Get(System.String)">
+            <summary>
+            gets a single itme by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TrovTHA.Controllers.PurchaseController">
+            <summary>
+            Purchase controller for managing purchase resource api/purchases
+            </summary>
+        </member>
+        <member name="M:TrovTHA.Controllers.PurchaseController.Get">
+            <summary>
+            Gets a list of purchases for the current authenticated user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TrovTHA.Controllers.PurchaseController.Post(Common.Domain.Purchase)">
+            <summary>
+            Creates a purchase for the current authenticated user
+            </summary>
+            <param name="purchase"></param>
             <returns></returns>
         </member>
     </members>

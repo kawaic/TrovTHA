@@ -9,15 +9,15 @@ using TrovTHA.Models;
 
 namespace TrovTHA.Controllers
 {
+    /// <summary>
+    /// Account controller for managing account resource api/Account
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private ApplicationUserManager UserManager => Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
         private IAuthenticationManager Authentication => Request.GetOwinContext().Authentication;
-
-
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // POST api/Account/Logout
         /// <summary>
@@ -95,8 +95,6 @@ namespace TrovTHA.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
-
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
@@ -127,6 +125,5 @@ namespace TrovTHA.Controllers
             return null;
         }
 
-        #endregion
     }
 }

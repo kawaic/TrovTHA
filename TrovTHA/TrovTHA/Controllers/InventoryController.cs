@@ -5,6 +5,9 @@ using Common.Repository;
 
 namespace TrovTHA.Controllers
 {
+    /// <summary>
+    /// Inventory controller for managing inventory resource api/inventories
+    /// </summary>
     [RoutePrefix("api/inventories")]
     public class InventoryController : ApiController
     {
@@ -16,17 +19,15 @@ namespace TrovTHA.Controllers
         }
 
         // GET api/items]
+        /// <summary>
+        /// Gets the list of all inventories
+        /// </summary>
+        /// <returns></returns>
         [Route("")]
         public IEnumerable<Inventory> Get()
         {
             return repository.FindAll();
         }
 
-        [Route("{id}")]
-        // GET api/inventories/5
-        public Inventory Get(string id)
-        {
-            return repository.FindById(id);
-        }
     }
 }

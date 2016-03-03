@@ -6,6 +6,9 @@ using Microsoft.AspNet.Identity;
 
 namespace TrovTHA.Controllers
 {
+    /// <summary>
+    /// Purchase controller for managing purchase resource api/purchases
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/purchases")]
     public class PurchaseController : ApiController
@@ -21,7 +24,11 @@ namespace TrovTHA.Controllers
             this.inventoryRepository = inventoryRepository;
         }
 
-        // GET: api/purchases for authenticated user
+        // GET: api/purchases
+        /// <summary>
+        /// Gets a list of purchases for the current authenticated user
+        /// </summary>
+        /// <returns></returns>
         [Route("")]
         public IEnumerable<Purchase> Get()
         {
@@ -30,6 +37,11 @@ namespace TrovTHA.Controllers
         }
 
         // POST: api/purchases
+        /// <summary>
+        /// Creates a purchase for the current authenticated user
+        /// </summary>
+        /// <param name="purchase"></param>
+        /// <returns></returns>
         [Route("")]
         public IHttpActionResult Post(Purchase purchase)
         {
