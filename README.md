@@ -24,11 +24,12 @@ The following libraries were used:
 3. A quick explanation of:
     * a. choice of data format. Include one example of a request and response
         * json and xml data format was chosen as it allows for a broad range of clients to use the api, the formatter can be set using the Content-Type request header     
+    * b. what authentication mechanism was chosen, and why 
+        * token based authentication was chosen, since the Gilded Rose is expanding and this can scale to the cloud or multiple server farms.
+
         * sample request :
           * GET api/inventories
         * sample JSON format response : 
 ```
 [{"Item":{"Name":"Apple","Description":"Gala apple.","Price":1.0,"DomainId":"1"},"NumberInStock":10,"ReOrderLevel":2,"Location":"Online","DomainId":"1"},{"Item":{"Name":"Orange","Description":"Sunkist orange.","Price":1.0,"DomainId":"2"},"NumberInStock":5,"ReOrderLevel":2,"Location":"Online","DomainId":"2"},{"Item":{"Name":"Ice Cream","Description":"Chocolate ice cream.","Price":5.0,"DomainId":"3"},"NumberInStock":1,"ReOrderLevel":2,"Location":"Online","DomainId":"3"},{"Item":{"Name":"Carton of Eggs","Description":"A dozen eggs.","Price":1.0,"DomainId":"4"},"NumberInStock":0,"ReOrderLevel":0,"Location":"Online","DomainId":"4"}]
 ```
-    * b. what authentication mechanism was chosen, and why 
-        * Owin token based authentication was chosen, since the Gilded Rose is expanding this can scale to the cloud or multiple server farms.
