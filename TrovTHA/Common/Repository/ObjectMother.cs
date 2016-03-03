@@ -5,7 +5,7 @@ using Common.Domain;
 namespace Common.Repository
 {
     /// <summary>
-    ///     A place to put sample data
+    /// Represents a data load when the application start
     /// </summary>
     public class ObjectMother
     {

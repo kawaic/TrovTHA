@@ -3,6 +3,9 @@ using Common.Domain;
 
 namespace Common.Repository
 {
+    /// <summary>
+    /// Interface contract for persistance of inventory
+    /// </summary>
     public interface IInventoryRepository
     {
         IEnumerable<Inventory> FindAll();

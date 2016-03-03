@@ -3,6 +3,9 @@ using Common.Domain;
 
 namespace Common.Repository
 {
+    /// <summary>
+    /// Interface contract for purchase persistance
+    /// </summary>
     public interface IPurchaseRepository
     {
         Purchase Save(Purchase purchase);

@@ -4,6 +4,10 @@ using Common.Domain;
 
 namespace Common.Repository
 {
+    /// <summary>
+    /// In memory dictionary implementation of a repository using Guid string as key
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class BaseInMemoryRepository<T> where T : IDomain
     {
         protected readonly Dictionary<string, T> dictionary = new Dictionary<string, T>();

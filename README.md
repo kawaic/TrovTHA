@@ -9,6 +9,9 @@ The following additional libraries were used:
     * RhinoMock for mocking interfaces
     * Owin TestServer for in memory hosting
 
+Questions to consider
+    - How do we know if a user is authenticated?  Using a token exchange system, the client will authenticate with the server are receive a token and use that on following requests to indicate that it has been authenticated.  IP address and other information can be used to prevent man in the middle attacks if needed.
+    - Is it always possible to buy an item?  No, only if there is enough inventory for the item being purchased, a HTTP 400 response with a reason phrase is used to communicate this.
 
 ### Deliverables
 1. A system that can process the two API requests via HTTP

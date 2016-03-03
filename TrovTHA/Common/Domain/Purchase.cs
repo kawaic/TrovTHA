@@ -2,6 +2,9 @@
 
 namespace Common.Domain
 {
+    /// <summary>
+    /// A purchase order for a quantity of an item 
+    /// </summary>
     public class Purchase : BaseDomain
     {
         public DateTime DateTime { get; set; }

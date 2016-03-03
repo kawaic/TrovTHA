@@ -1,5 +1,8 @@
 ﻿namespace Common.Domain
 {
+    /// <summary>
+    /// The inventory information for an item at a location
+    /// </summary>
     public class Inventory : BaseDomain
     {
         public Item Item { get; set; }

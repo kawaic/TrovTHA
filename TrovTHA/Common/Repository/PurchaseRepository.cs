@@ -4,6 +4,9 @@ using Common.Domain;
 
 namespace Common.Repository
 {
+    /// <summary>
+    /// In memory implementation of purchase persistance
+    /// </summary>
     public class PurchaseRepository : BaseInMemoryRepository<Purchase>, IPurchaseRepository
     {
         public PurchaseRepository()

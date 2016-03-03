@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Domain;
+﻿using Common.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Common.Tests.Domain

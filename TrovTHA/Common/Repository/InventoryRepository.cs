@@ -3,6 +3,9 @@ using Common.Domain;
 
 namespace Common.Repository
 {
+    /// <summary>
+    /// In memory implemenation of inventory persistance
+    /// </summary>
     public class InventoryRepository : BaseInMemoryRepository<Inventory>, IInventoryRepository
     {
         public InventoryRepository()
