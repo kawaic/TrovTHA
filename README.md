@@ -1,9 +1,9 @@
 # Trov Take Home Assignment
 ### By Ka-Wai Chan
 
-The assignment was implemented using Asp.net MVC 5 - Web API framework.
+The assignment was implemented using Asp.net Web API framework using Visual Studio 2015.
 
-The following libraries were used: 
+The following additional libraries were used: 
 
     * Unity for dependency injection
     * RhinoMock for mocking interfaces
