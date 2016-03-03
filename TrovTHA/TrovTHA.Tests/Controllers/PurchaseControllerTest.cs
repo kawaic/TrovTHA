@@ -20,15 +20,16 @@ namespace TrovTHA.Tests.Controllers
         [TestMethod]
         public void Get()
         {
-            var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
+            var purchaseRepository = MockRepository.GenerateMock<IPurchaseRepository>();
+            var inventoryRepository = MockRepository.GenerateMock<IInventoryRepository>();
             var dateTime = DateTime.Now;
-            mockRepository.Stub(repository => repository.FindByUserId("1"))
+            purchaseRepository.Stub(repository => repository.FindByUserId("1"))
                 .Return(new List<Purchase>
                 {
                     new Purchase {DateTime = dateTime, ItemId = "3"},
                     new Purchase {DateTime = dateTime, ItemId = "2"}
                 });
-            var apiController = new PurchaseController(mockRepository);
+            var apiController = new PurchaseController(purchaseRepository, inventoryRepository);
             SetupUserIdInController(apiController);
 
             IEnumerable<Purchase> result = apiController.Get().ToList();
@@ -43,9 +44,11 @@ namespace TrovTHA.Tests.Controllers
         public void Post()
         {
             var mockRepository = MockRepository.GenerateMock<IPurchaseRepository>();
-            var purchase = new Purchase { DateTime = DateTime.Now, ItemId = "2" };
-            var apiController = new PurchaseController(mockRepository);
+            var inventoryRepository = MockRepository.GenerateMock<IInventoryRepository>();
+            var purchase = new Purchase { DateTime = DateTime.Now, ItemId = "2", Quantity = 1};
+            var apiController = new PurchaseController(mockRepository, inventoryRepository);
             mockRepository.Expect(repository => repository.Save(purchase));
+            inventoryRepository.Stub(repository => repository.FindByItemId("2")).Return(new Inventory {NumberInStock = 10});
             SetupUserIdInController(apiController);
 
             var result = apiController.Post(purchase);

@@ -1,4 +1,5 @@
-﻿using Common.Domain;
+﻿using System.Linq;
+using Common.Domain;
 
 namespace Common.Repository
 {
@@ -7,6 +8,11 @@ namespace Common.Repository
         public InventoryRepository()
         {
             ObjectMother.Inventories.ForEach(x => Save(x));
+        }
+
+        public Inventory FindByItemId(string itemId)
+        {
+            return FindAll().FirstOrDefault(inventory => inventory.Item.DomainId == itemId);
         }
     }
 }

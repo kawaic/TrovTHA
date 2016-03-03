@@ -21,6 +21,7 @@ namespace TrovTHA
             container.RegisterType<IItemRepository, ItemRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPurchaseRepository, PurchaseRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IUserRepository, UserRepository>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IInventoryRepository, InventoryRepository>(new ContainerControlledLifetimeManager());
 
         }
     }

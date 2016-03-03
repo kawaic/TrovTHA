@@ -10,11 +10,15 @@ namespace TrovTHA.Controllers
     [RoutePrefix("api/purchases")]
     public class PurchaseController : ApiController
     {
-        private readonly IPurchaseRepository repository;
+        public const string NotEnoughInventoryWasFound = "Not enough inventory was found.";
 
-        public PurchaseController(IPurchaseRepository repository)
+        private readonly IPurchaseRepository purchaseRepository;
+        private readonly IInventoryRepository inventoryRepository;
+
+        public PurchaseController(IPurchaseRepository purchaseRepository, IInventoryRepository inventoryRepository)
         {
-            this.repository = repository;
+            this.purchaseRepository = purchaseRepository;
+            this.inventoryRepository = inventoryRepository;
         }
 
         // GET: api/purchases for authenticated user
@@ -22,17 +26,28 @@ namespace TrovTHA.Controllers
         public IEnumerable<Purchase> Get()
         {
             var userId = User.Identity.GetUserId();
-            return repository.FindByUserId(userId);
+            return purchaseRepository.FindByUserId(userId);
         }
 
         // POST: api/purchases
         [Route("")]
-        public IHttpActionResult Post(Purchase model)
+        public IHttpActionResult Post(Purchase purchase)
         {
             var userId = User.Identity.GetUserId();
-            model.UserId = userId;
-            repository.Save(model);
-            return Ok();
+            purchase.UserId = userId;
+
+            var inventory = inventoryRepository.FindByItemId(purchase.ItemId);
+            lock (inventory)
+            {
+                if (inventory.NumberInStock >= purchase.Quantity)
+                {
+                    inventory.NumberInStock = inventory.NumberInStock - purchase.Quantity;
+                    inventoryRepository.Save(inventory);
+                    purchaseRepository.Save(purchase);
+                    return Ok();
+                }
+            }
+            return BadRequest(NotEnoughInventoryWasFound);
         }
 
     }

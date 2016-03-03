@@ -7,5 +7,6 @@ namespace Common.Domain
         public DateTime DateTime { get; set; }
         public string ItemId { get; set; }
         public string UserId { get; set; }
+        public int Quantity { get; set; }
     }
 }

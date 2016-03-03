@@ -28,7 +28,7 @@ namespace TrovTHA.Providers
 
         public Task<ApplicationUser> FindByNameAsync(string userName)
         {
-            var user = repository.FindAll().FirstOrDefault(item => item.UserName == userName);
+            var user = repository.FindByUsername(userName);
             return Task.FromResult(user);
         }
 
@@ -46,7 +46,8 @@ namespace TrovTHA.Providers
 
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
-            throw new NotImplementedException();
+            var user = repository.FindById(userId);
+            return Task.FromResult(user);
         }
 
         public Task UpdateAsync(ApplicationUser user)

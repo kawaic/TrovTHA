@@ -7,5 +7,7 @@ namespace Common.Repository
     {
         IEnumerable<Inventory> FindAll();
         Inventory FindById(string id);
+        Inventory FindByItemId(string itemId);
+        Inventory Save(Inventory inventory);
     }
 }
