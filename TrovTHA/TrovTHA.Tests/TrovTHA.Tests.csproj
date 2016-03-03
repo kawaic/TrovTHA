@@ -141,6 +141,7 @@
     <Compile Include="Integration\AccountApiTest.cs" />
     <Compile Include="Integration\BaseApiServerTest.cs" />
     <Compile Include="Integration\BaseAuthenticatedApiServerTest.cs" />
+    <Compile Include="Integration\InsecurePurchaseApiTest.cs" />
     <Compile Include="Integration\ItemApiTest.cs" />
     <Compile Include="Integration\PurchaseApiTest.cs" />
     <Compile Include="Integration\TestStartup.cs" />

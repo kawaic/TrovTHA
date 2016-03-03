@@ -30,6 +30,26 @@ namespace TrovTHA.Tests.Integration
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
+        [TestMethod]
+        public async Task ShouldBlockRegistrationWithWeakPassword()
+        {
+            var model = new RegisterBindingModel
+            {
+                Email = "testuser@somewhere.com",
+                Password = "Pa55word",
+                ConfirmPassword = "Pa55word"
+            };
+            var objectContent = new ObjectContent(typeof(RegisterBindingModel), model, new JsonMediaTypeFormatter());
+
+            var response = await server.CreateRequest("/api/Account/Register")
+                .And(req => { req.Content = objectContent; })
+                .PostAsync();
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+
+            var content = response.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(content.Contains("Passwords must have at least one non letter or digit character"));
+        }
 
         [TestMethod]
         public async Task CanLogin()
