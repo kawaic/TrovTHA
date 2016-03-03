@@ -14,6 +14,12 @@ Questions to consider
     1. How do we know if a user is authenticated?  Using a token exchange system, the client will authenticate with the server are receive a token and use that on following requests to indicate that it has been authenticated.  IP address and other information can be used to prevent man in the middle attacks if needed.
     2. Is it always possible to buy an item?  No, the item could be removed, or if there is not enough inventory to fullfil the purchased, a HTTP 400 response with a reason phrase is used to communicate this.
 
+Design consideration
+
+    * An in memory repository system was used, it is fully abstracted out with interfaces so that a real database repository implemenation can be used as a replacement easily.  It also allows for a seperation of concerns between the controller and data persistance.  If the business logic was to evolve to be more complex, a service facade could be introduced to isolate the persistance layer from the controller layer.
+    * The controllers uses dependency injection with the repositories, this allows for easy testing with mock repositories in unit tests.
+    * Token based authentication is used with the Asp.net Identity framework, this allows us to integrate other sources of authentication such as google, facebook etc..
+
 ### Deliverables
 
 1. A system that can process the two API requests via HTTP
